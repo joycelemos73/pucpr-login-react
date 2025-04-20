@@ -1,39 +1,30 @@
-// Arquivo: LoginForm.tsx
-import { useState, FormEvent, ChangeEvent } from 'react';
+// Arquivo: LoginForm.jsx
+import { useState } from 'react';
 
-// Define a interface para credenciais de usuário
-interface UserCredentials {
-    email: string;
-    password: string;
-}
-
-// Define os tipos de mensagem para clareza
-type MessageType = 'success' | 'error' | '';
-
-const LoginForm: React.FC = () => {
-    // Estado com anotações de tipo adequadas
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
-    const [messageType, setMessageType] = useState<MessageType>('');
+const LoginForm = () => {
+    // Estado para os campos do formulário
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState('');
 
     // Dados de usuário simulados
-    const mockUserData: UserCredentials = {
-        email: 'eduardo.lino@pucpr.br',
+    const mockUserData = {
+        email: 'joyce.lemos@pucpr.br',
         password: '123456'
     };
 
-    // Manipuladores de eventos com tipagem adequada
-    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    // Manipuladores de eventos
+    const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
 
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const handlePasswordChange = (e) => {
         setPassword(e.target.value);
     };
 
-    // Manipulador de envio de formulário com tipagem adequada
-    const handleAccess = (e: FormEvent<HTMLFormElement>): void => {
+    // Manipulador de envio de formulário
+    const handleAccess = (e) => {
         e.preventDefault();
 
         // Validar credenciais

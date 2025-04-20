@@ -1,11 +1,9 @@
-
-// Arquivo: App.tsx
+// Arquivo: App.jsx
 import React from 'react';
 import './App.css';
 import LoginForm from "./LoginForm";
 
-
-const App: React.FC = () => {
+const App = () => {
     return (
         <div className="App">
             <div className="app-container">
@@ -14,6 +12,5 @@ const App: React.FC = () => {
         </div>
     );
 };
-
 
 export default App;

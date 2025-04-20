@@ -44,3 +44,34 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## CI/CD and Deployment
+
+This project is configured with GitHub Actions for continuous integration and deployment to GitHub Pages.
+
+### GitHub Actions Workflow
+
+The CI/CD pipeline is defined in `.github/workflows/ci-cd.yml` and includes the following steps:
+
+1. **Build**: Automatically builds the application when changes are pushed to the main/master branch.
+2. **Deploy**: Automatically deploys the built application to GitHub Pages.
+
+### Manual Deployment
+
+You can also manually deploy the application using:
+
+```
+npm run deploy
+```
+
+This will build the application and deploy it to the `gh-pages` branch of your repository.
+
+### GitHub Pages
+
+The application is configured to be deployed to GitHub Pages. You can access the deployed application at:
+
+```
+https://[your-github-username].github.io/pucpr-login/
+```
+
+> **Note**: Before deploying, make sure to update the `homepage` field in `package.json` with your GitHub username.

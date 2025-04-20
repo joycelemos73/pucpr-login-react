@@ -1,10 +1,10 @@
-// Arquivo: index.tsx
+// Arquivo: index.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
-// Asserção de tipo para getElementById já que sabemos que 'root' existe
+// Verificamos se o elemento 'root' existe
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Falha ao encontrar o elemento root');
 
