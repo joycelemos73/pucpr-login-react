@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    # Mount the source code as a volume for hot reloading
+    volumes:
+      - ./:/app
+      - /app/node_modules
