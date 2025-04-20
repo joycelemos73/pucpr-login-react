@@ -45,16 +45,64 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+## Docker
+
+This project is configured to run in a Docker container.
+
+### Building and Running with Docker
+
+To build and run the application using Docker:
+
+```bash
+# Build the Docker image
+docker build -t pucpr-login .
+
+# Run the container
+docker run -p 80:80 pucpr-login
+```
+
+The application will be available at http://localhost:80
+
+### Using Docker Compose
+
+You can also use Docker Compose to build and run the application:
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# Stop the container
+docker-compose down
+```
+
+### Development with Docker
+
+For development, you can uncomment the volume mounts and command in `docker-compose.yml` to enable hot reloading:
+
+```yaml
+volumes:
+  - ./:/app
+  - /app/node_modules
+command: npm start
+```
+
+Then run:
+
+```bash
+docker-compose up -d
+```
+
 ## CI/CD and Deployment
 
-This project is configured with GitHub Actions for continuous integration and deployment to GitHub Pages.
+This project is configured with GitHub Actions for continuous integration and deployment to GitHub Pages and Docker.
 
 ### GitHub Actions Workflow
 
 The CI/CD pipeline is defined in `.github/workflows/ci-cd.yml` and includes the following steps:
 
-1. **Build**: Automatically builds the application when changes are pushed to the main/master branch.
-2. **Deploy**: Automatically deploys the built application to GitHub Pages.
+1. **Build and Push Docker Image**: Builds a Docker image and pushes it to GitHub Container Registry.
+2. **Build**: Builds the application for static deployment.
+3. **Deploy**: Deploys the built application to GitHub Pages.
 
 ### Manual Deployment
 
@@ -75,3 +123,11 @@ https://[your-github-username].github.io/pucpr-login/
 ```
 
 > **Note**: Before deploying, make sure to update the `homepage` field in `package.json` with your GitHub username.
+
+### Docker Image
+
+The Docker image is published to GitHub Container Registry and can be pulled using:
+
+```bash
+docker pull ghcr.io/[your-github-username]/pucpr-login:latest
+```
