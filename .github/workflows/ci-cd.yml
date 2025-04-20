@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Docker Build and Push
 
 on:
   push:
@@ -46,49 +46,3 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      # Still keep the static deployment for GitHub Pages
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build for GitHub Pages
-        run: |
-          # Set the PUBLIC_URL for GitHub Pages deployment
-          export PUBLIC_URL=/pucpr-login
-          export REACT_APP_PUBLIC_URL=/pucpr-login
-          npm run build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-files
-          path: build/
-          retention-days: 1
-
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-files
-          path: build
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build # The folder the action should deploy
-          branch: gh-pages # The branch the action should deploy to
