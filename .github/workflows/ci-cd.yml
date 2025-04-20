@@ -57,8 +57,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build
+      - name: Build for GitHub Pages
+        run: |
+          # Set the PUBLIC_URL for GitHub Pages deployment
+          export PUBLIC_URL=/pucpr-login
+          export REACT_APP_PUBLIC_URL=/pucpr-login
+          npm run build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

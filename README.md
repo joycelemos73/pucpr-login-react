@@ -47,7 +47,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Docker
 
-This project is configured to run in a Docker container.
+This project is configured to run as a regular React app in a Docker container.
 
 ### Building and Running with Docker
 
@@ -58,10 +58,12 @@ To build and run the application using Docker:
 docker build -t pucpr-login .
 
 # Run the container
-docker run -p 80:80 pucpr-login
+docker run -p 3000:3000 pucpr-login
 ```
 
-The application will be available at http://localhost:80
+The application will be available at http://localhost:3000
+
+> **Note**: The application runs in development mode with hot reloading enabled.
 
 ### Using Docker Compose
 
@@ -77,19 +79,12 @@ docker-compose down
 
 ### Development with Docker
 
-For development, you can uncomment the volume mounts and command in `docker-compose.yml` to enable hot reloading:
+The Docker setup is already configured for development with hot reloading enabled. The source code is mounted as a volume, so any changes you make to the code will be reflected immediately in the running application.
 
 ```yaml
 volumes:
   - ./:/app
   - /app/node_modules
-command: npm start
-```
-
-Then run:
-
-```bash
-docker-compose up -d
 ```
 
 ## CI/CD and Deployment
