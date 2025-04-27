@@ -10,7 +10,7 @@ const LoginPage = () => {
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
     const [loading, setLoading] = useState(false);
-    
+
     const navigate = useNavigate();
 
     // Event handlers
@@ -31,16 +31,16 @@ const LoginPage = () => {
         try {
             // Authenticate with Firebase
             await signInWithEmailAndPassword(auth, email, password);
-            setMessage('Login successful!');
+            setMessage('Login realizado com sucesso!');
             setMessageType('success');
-            
+
             // Redirect to welcome page after successful login
             setTimeout(() => {
                 navigate('/welcome');
             }, 1000);
         } catch (error) {
             console.error('Login error:', error);
-            setMessage('Invalid email or password. Please try again.');
+            setMessage('Email ou senha inválidos. Por favor, tente novamente.');
             setMessageType('error');
         } finally {
             setLoading(false);
@@ -57,7 +57,7 @@ const LoginPage = () => {
                         type="email"
                         value={email}
                         onChange={handleEmailChange}
-                        placeholder="your.email@example.com"
+                        placeholder="seu.email@exemplo.com.br"
                         className="form-input"
                         required
                     />
@@ -68,7 +68,7 @@ const LoginPage = () => {
                         type="password"
                         value={password}
                         onChange={handlePasswordChange}
-                        placeholder="Password"
+                        placeholder="Senha"
                         className="form-input"
                         required
                     />
@@ -79,7 +79,7 @@ const LoginPage = () => {
                     className="form-button"
                     disabled={loading}
                 >
-                    {loading ? 'Logging in...' : 'Login'}
+                    {loading ? 'Entrando...' : 'Entrar'}
                 </button>
             </form>
 
@@ -88,9 +88,9 @@ const LoginPage = () => {
                     {message}
                 </div>
             )}
-            
+
             <div style={{ marginTop: '1rem' }}>
-                Don't have an account? <Link to="/register">Register here</Link>
+                Não tem uma conta? <Link to="/register">Registre-se aqui</Link>
             </div>
         </div>
     );

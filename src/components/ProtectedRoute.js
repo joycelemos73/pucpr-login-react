@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children }) => {
     if (loading) {
         return (
             <div className="login-container">
-                <h1 className="login-heading">Loading...</h1>
+                <h1 className="login-heading">Carregando...</h1>
             </div>
         );
     }
