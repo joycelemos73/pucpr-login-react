@@ -13,7 +13,7 @@ const RegisterPage = () => {
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
     const [loading, setLoading] = useState(false);
-    
+
     const navigate = useNavigate();
 
     // Event handlers
@@ -51,26 +51,26 @@ const RegisterPage = () => {
                 email: email
             });
 
-            setMessage('Registration successful! Redirecting to login...');
+            setMessage('Registro realizado com sucesso! Redirecionando para o login...');
             setMessageType('success');
-            
+
             // Redirect to login page after successful registration
             setTimeout(() => {
                 navigate('/');
             }, 2000);
         } catch (error) {
             console.error('Registration error:', error);
-            let errorMessage = 'Registration failed. Please try again.';
-            
+            let errorMessage = 'Falha no registro. Por favor, tente novamente.';
+
             // Handle specific Firebase errors
             if (error.code === 'auth/email-already-in-use') {
-                errorMessage = 'This email is already registered.';
+                errorMessage = 'Este email já está registrado.';
             } else if (error.code === 'auth/weak-password') {
-                errorMessage = 'Password is too weak. Please use a stronger password.';
+                errorMessage = 'Senha muito fraca. Por favor, use uma senha mais forte.';
             } else if (error.code === 'auth/invalid-email') {
-                errorMessage = 'Invalid email address.';
+                errorMessage = 'Endereço de email inválido.';
             }
-            
+
             setMessage(errorMessage);
             setMessageType('error');
         } finally {
@@ -80,7 +80,7 @@ const RegisterPage = () => {
 
     return (
         <div className="login-container">
-            <h1 className="login-heading">Register</h1>
+            <h1 className="login-heading">Registro</h1>
 
             <form className="form-full-width" onSubmit={handleRegister}>
                 <div className="form-group">
@@ -88,7 +88,7 @@ const RegisterPage = () => {
                         type="email"
                         value={email}
                         onChange={handleEmailChange}
-                        placeholder="your.email@example.com"
+                        placeholder="seu.email@exemplo.com.br"
                         className="form-input"
                         required
                     />
@@ -99,7 +99,7 @@ const RegisterPage = () => {
                         type="password"
                         value={password}
                         onChange={handlePasswordChange}
-                        placeholder="Password"
+                        placeholder="Senha"
                         className="form-input"
                         required
                     />
@@ -110,7 +110,7 @@ const RegisterPage = () => {
                         type="text"
                         value={firstName}
                         onChange={handleFirstNameChange}
-                        placeholder="First Name"
+                        placeholder="Nome"
                         className="form-input"
                         required
                     />
@@ -121,7 +121,7 @@ const RegisterPage = () => {
                         type="text"
                         value={lastName}
                         onChange={handleLastNameChange}
-                        placeholder="Last Name"
+                        placeholder="Sobrenome"
                         className="form-input"
                         required
                     />
@@ -132,7 +132,7 @@ const RegisterPage = () => {
                     className="form-button"
                     disabled={loading}
                 >
-                    {loading ? 'Registering...' : 'Register'}
+                    {loading ? 'Registrando...' : 'Registrar'}
                 </button>
             </form>
 
@@ -141,9 +141,9 @@ const RegisterPage = () => {
                     {message}
                 </div>
             )}
-            
+
             <div style={{ marginTop: '1rem' }}>
-                Already have an account? <Link to="/">Login here</Link>
+                Já tem uma conta? <Link to="/">Faça login aqui</Link>
             </div>
         </div>
     );

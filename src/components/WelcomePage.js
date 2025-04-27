@@ -8,37 +8,37 @@ const WelcomePage = () => {
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    
+
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const user = auth.currentUser;
-                
+
                 if (!user) {
                     // If no user is logged in, redirect to login page
                     navigate('/');
                     return;
                 }
-                
+
                 // Fetch user data from Firestore
                 const userDocRef = doc(db, "users", user.uid);
                 const userDoc = await getDoc(userDocRef);
-                
+
                 if (userDoc.exists()) {
                     setUserData(userDoc.data());
                 } else {
-                    setError('User data not found');
+                    setError('Dados do usuário não encontrados');
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
-                setError('Failed to load user data');
+                setError('Falha ao carregar dados do usuário');
             } finally {
                 setLoading(false);
             }
         };
-        
+
         fetchUserData();
     }, [navigate]);
 
@@ -48,14 +48,14 @@ const WelcomePage = () => {
             navigate('/');
         } catch (error) {
             console.error('Logout error:', error);
-            setError('Failed to log out');
+            setError('Falha ao sair da conta');
         }
     };
 
     if (loading) {
         return (
             <div className="login-container">
-                <h1 className="login-heading">Loading...</h1>
+                <h1 className="login-heading">Carregando...</h1>
             </div>
         );
     }
@@ -63,10 +63,10 @@ const WelcomePage = () => {
     if (error) {
         return (
             <div className="login-container">
-                <h1 className="login-heading">Error</h1>
+                <h1 className="login-heading">Erro</h1>
                 <div className="error-message">{error}</div>
                 <button className="form-button" onClick={() => navigate('/')}>
-                    Back to Login
+                    Voltar para o Login
                 </button>
             </div>
         );
@@ -74,17 +74,17 @@ const WelcomePage = () => {
 
     return (
         <div className="login-container">
-            <h1 className="login-heading">Bem vindo</h1>
-            
+            <h1 className="login-heading">Bem-vindo</h1>
+
             {userData && (
                 <div style={{ marginBottom: '1.5rem' }}>
                     <p>Nome: {userData.nome}</p>
                     <p>Sobrenome: {userData.sobrenome}</p>
                 </div>
             )}
-            
+
             <button className="form-button" onClick={handleLogout}>
-                Logout
+                Sair
             </button>
         </div>
     );
