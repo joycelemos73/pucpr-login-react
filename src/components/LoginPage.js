@@ -4,7 +4,7 @@ import { auth } from '../firebase/firebase';
 import { useNavigate, Link } from 'react-router-dom';
 
 const LoginPage = () => {
-    // State for form fields
+    // Estado para os campos do formulário
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -13,7 +13,7 @@ const LoginPage = () => {
 
     const navigate = useNavigate();
 
-    // Event handlers
+    // Manipuladores de eventos
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
@@ -22,24 +22,24 @@ const LoginPage = () => {
         setPassword(e.target.value);
     };
 
-    // Form submission handler
+    // Manipulador de envio do formulário
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
         setMessage('');
 
         try {
-            // Authenticate with Firebase
+            // Autenticar com o Firebase
             await signInWithEmailAndPassword(auth, email, password);
             setMessage('Login realizado com sucesso!');
             setMessageType('success');
 
-            // Redirect to welcome page after successful login
+            // Redirecionar para a página de boas-vindas após login bem-sucedido
             setTimeout(() => {
                 navigate('/welcome');
             }, 1000);
         } catch (error) {
-            console.error('Login error:', error);
+            console.error('Erro de login:', error);
             setMessage('Email ou senha inválidos. Por favor, tente novamente.');
             setMessageType('error');
         } finally {
