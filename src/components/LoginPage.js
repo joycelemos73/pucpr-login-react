@@ -13,7 +13,7 @@ const LoginPage = () => {
 
     const navigate = useNavigate();
 
-    // Manipuladores de eventos
+    // Manipuladores de eventos para os campos do formulário
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
@@ -39,7 +39,7 @@ const LoginPage = () => {
                 navigate('/welcome');
             }, 1000);
         } catch (error) {
-            console.error('Erro de login:', error);
+            console.error('Erro ao realizar login:', error);
             setMessage('Email ou senha inválidos. Por favor, tente novamente.');
             setMessageType('error');
         } finally {

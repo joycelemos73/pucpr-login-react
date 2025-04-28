@@ -10,13 +10,14 @@ const RegisterPage = () => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [birthDate, setBirthDate] = useState('');
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
-    // Manipuladores de eventos
+    // Manipuladores de eventos para os campos do formulário
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
@@ -31,6 +32,10 @@ const RegisterPage = () => {
 
     const handleLastNameChange = (e) => {
         setLastName(e.target.value);
+    };
+
+    const handleBirthDateChange = (e) => {
+        setBirthDate(e.target.value);
     };
 
     // Manipulador de envio do formulário
@@ -48,7 +53,8 @@ const RegisterPage = () => {
             await setDoc(doc(db, "users", user.uid), {
                 nome: firstName,
                 sobrenome: lastName,
-                email: email
+                email: email,
+                dataNascimento: birthDate
             });
 
             setMessage('Registro realizado com sucesso! Redirecionando para o login...');
@@ -59,7 +65,7 @@ const RegisterPage = () => {
                 navigate('/');
             }, 2000);
         } catch (error) {
-            console.error('Erro de registro:', error);
+            console.error('Erro no registro do usuário:', error);
             let errorMessage = 'Falha no registro. Por favor, tente novamente.';
 
             // Tratar erros específicos do Firebase
@@ -122,6 +128,17 @@ const RegisterPage = () => {
                         value={lastName}
                         onChange={handleLastNameChange}
                         placeholder="Sobrenome"
+                        className="form-input"
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <input
+                        type="date"
+                        value={birthDate}
+                        onChange={handleBirthDateChange}
+                        placeholder="Data de Nascimento"
                         className="form-input"
                         required
                     />
