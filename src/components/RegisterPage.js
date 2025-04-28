@@ -5,18 +5,19 @@ import { auth, db } from '../firebase/firebase';
 import { useNavigate, Link } from 'react-router-dom';
 
 const RegisterPage = () => {
-    // State for form fields
+    // Estado para os campos do formulário
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [birthDate, setBirthDate] = useState('');
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState('');
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
-    // Event handlers
+    // Manipuladores de eventos para os campos do formulário
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
@@ -33,36 +34,41 @@ const RegisterPage = () => {
         setLastName(e.target.value);
     };
 
-    // Form submission handler
+    const handleBirthDateChange = (e) => {
+        setBirthDate(e.target.value);
+    };
+
+    // Manipulador de envio do formulário
     const handleRegister = async (e) => {
         e.preventDefault();
         setLoading(true);
         setMessage('');
 
         try {
-            // Create user in Firebase Authentication
+            // Criar usuário na Autenticação do Firebase
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Store additional user data in Firestore
+            // Armazenar dados adicionais do usuário no Firestore
             await setDoc(doc(db, "users", user.uid), {
                 nome: firstName,
                 sobrenome: lastName,
-                email: email
+                email: email,
+                dataNascimento: birthDate
             });
 
             setMessage('Registro realizado com sucesso! Redirecionando para o login...');
             setMessageType('success');
 
-            // Redirect to login page after successful registration
+            // Redirecionar para a página de login após o registro bem-sucedido
             setTimeout(() => {
                 navigate('/');
             }, 2000);
         } catch (error) {
-            console.error('Registration error:', error);
+            console.error('Erro no registro do usuário:', error);
             let errorMessage = 'Falha no registro. Por favor, tente novamente.';
 
-            // Handle specific Firebase errors
+            // Tratar erros específicos do Firebase
             if (error.code === 'auth/email-already-in-use') {
                 errorMessage = 'Este email já está registrado.';
             } else if (error.code === 'auth/weak-password') {
@@ -122,6 +128,17 @@ const RegisterPage = () => {
                         value={lastName}
                         onChange={handleLastNameChange}
                         placeholder="Sobrenome"
+                        className="form-input"
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <input
+                        type="date"
+                        value={birthDate}
+                        onChange={handleBirthDateChange}
+                        placeholder="Data de Nascimento"
                         className="form-input"
                         required
                     />

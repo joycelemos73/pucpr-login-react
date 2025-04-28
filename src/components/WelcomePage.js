@@ -17,12 +17,12 @@ const WelcomePage = () => {
                 const user = auth.currentUser;
 
                 if (!user) {
-                    // If no user is logged in, redirect to login page
+                    // Se nenhum usuário estiver logado, redirecionar para a página de login
                     navigate('/');
                     return;
                 }
 
-                // Fetch user data from Firestore
+                // Buscar dados do usuário no Firestore
                 const userDocRef = doc(db, "users", user.uid);
                 const userDoc = await getDoc(userDocRef);
 
@@ -32,7 +32,7 @@ const WelcomePage = () => {
                     setError('Dados do usuário não encontrados');
                 }
             } catch (error) {
-                console.error('Error fetching user data:', error);
+                console.error('Erro ao buscar dados do usuário:', error);
                 setError('Falha ao carregar dados do usuário');
             } finally {
                 setLoading(false);
@@ -47,7 +47,7 @@ const WelcomePage = () => {
             await signOut(auth);
             navigate('/');
         } catch (error) {
-            console.error('Logout error:', error);
+            console.error('Erro ao sair da conta:', error);
             setError('Falha ao sair da conta');
         }
     };

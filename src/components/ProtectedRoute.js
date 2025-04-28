@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
             setLoading(false);
         });
 
-        // Cleanup subscription on unmount
+        // Limpar inscrição ao desmontar o componente
         return () => unsubscribe();
     }, []);
 
